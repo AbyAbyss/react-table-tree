@@ -9,8 +9,6 @@ export default (props) => {
 
     
     useEffect(() => {
-        console.log('useEffect(() => { indentLevelOffset', indentLevelOffset);
-
         if (![null, undefined].includes(props.indentLevelOffset)) {
             setIndentLevelOffset(props.indentLevelOffset);
         }
