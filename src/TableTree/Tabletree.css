@@ -20,6 +20,12 @@
   cursor: pointer;
 }
 
+.no-style {
+  border:none;
+  background: inherit;
+  color: inherit;
+}
+
 /* custom css */
 
 .table {

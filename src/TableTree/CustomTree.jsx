@@ -3,7 +3,7 @@ import Header from "./Header"
 
 import './Tabletree.css'
 
-export default ({columnsWidth = {}, items, fields, data = []}) => {
+export default ({columnsWidth = {}, items, fields, data = [], minimizeIcon = null, maximizeIcon = null}) => {
 
     const getHeaderElems = (data) => {
       if (data && data.length) {
@@ -15,8 +15,14 @@ export default ({columnsWidth = {}, items, fields, data = []}) => {
     return (
       <div>
           <table className="table table-striped table-hover">
-            <Header items={items? items : getHeaderElems(data)} columnsWidth={columnsWidth}/>
-            <Body fields={fields ? fields : getHeaderElems(data)} data={data} /> 
+            <Header 
+            items={items? items : getHeaderElems(data)} 
+            columnsWidth={columnsWidth}/>
+            <Body 
+            fields={fields ? fields : getHeaderElems(data)} 
+            data={data}
+            minimizeIcon={minimizeIcon}
+            maximizeIcon={maximizeIcon} /> 
           </table>
         </div>
     )

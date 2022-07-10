@@ -73,6 +73,8 @@ class App extends Component {
       <Tree data={this.data} 
       items={this.getHeaderElems(this.data)}
       fields={this.getHeaderElems(this.data)}
+      maximizeIcon={<span>></span>}
+      minimizeIcon={<span>\/</span>}
       columnsWidth={{
             name: "70%",
             qty: "30%"

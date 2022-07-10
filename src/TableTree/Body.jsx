@@ -104,7 +104,10 @@ export default (props) => {
                     data={elem}
                     level={elem._level}
                     index={i}
-                    onClick={(key, index) => clickHandler(key, index)} />
+                    onClick={(key, index) => clickHandler(key, index)}
+                    maximizeIcon={props.maximizeIcon}
+                    minimizeIcon={props.minimizeIcon} 
+                    />
                 ))
             }
             

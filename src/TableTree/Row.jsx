@@ -10,9 +10,10 @@ export default (props) => {
             if (data._showChildren) {
                 return (
                     <span className="treegrid-expander">
-                        <span onClick={clickHandler}>
-                        -
-                        </span>
+                        <button className='no-style' onClick={clickHandler}>
+                            {props.minimizeIcon ? props.minimizeIcon : <span>-</span>}
+                        {/* - */}
+                        </button>
                         {/* <i className="fa fa-minus" onClick={clickHandler}></i> */}
                     </span>
                 )
@@ -20,9 +21,9 @@ export default (props) => {
 
             return (
                 <span className="treegrid-expander">
-                    <span onClick={clickHandler}>
-                    +
-                    </span>
+                    <button className='no-style' onClick={clickHandler}>
+                        {props.maximizeIcon ? props.maximizeIcon : <span>+</span>}
+                    </button>
                     {/* <i className="fa fa-plus" onClick={clickHandler}>+</i> */}
                 </span>
             )
