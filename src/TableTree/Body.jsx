@@ -106,7 +106,8 @@ export default (props) => {
                     index={i}
                     onClick={(key, index) => clickHandler(key, index)}
                     maximizeIcon={props.maximizeIcon}
-                    minimizeIcon={props.minimizeIcon} 
+                    minimizeIcon={props.minimizeIcon}
+                    indentLevelOffset={props.indentLevelOffset}
                     />
                 ))
             }

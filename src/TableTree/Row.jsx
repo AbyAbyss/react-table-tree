@@ -1,9 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Tabletree.css';
 
-const LEVEL_OFFSET = 16
+const INDENT_LEVEL_OFFSET = 16
 
 export default (props) => {
+
+    const [indentLevelOffset, setIndentLevelOffset] = useState(INDENT_LEVEL_OFFSET)
+
+    
+    useEffect(() => {
+        console.log('useEffect(() => { indentLevelOffset', indentLevelOffset);
+
+        if (![null, undefined].includes(props.indentLevelOffset)) {
+            setIndentLevelOffset(props.indentLevelOffset);
+        }
+    }, []);
 
     const getExpandIcon = (data, clickHandler) => {
         if (data._hasChildren) {
@@ -39,12 +50,8 @@ export default (props) => {
     }
 
     const getIndent = (level) => {
-        return <span className="treegrid-indent" style={{width: level * LEVEL_OFFSET}}></span>
+        return <span className="treegrid-indent" style={{width: level * indentLevelOffset}}></span>
     }
-
-    useEffect(() => {
-
-    }, []);
 
     return <Render 
         data={props.data}
