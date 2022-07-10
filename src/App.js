@@ -37,11 +37,11 @@ function App() {
   return (
     <div>
       <TableTreeGrid data={data}
-        items={getHeaderElems(data)}     // optional will be genrated automatically
+        items={getHeaderElems(data).map(e => e.toLocaleUpperCase())}     // for header, optional will be genrated automatically
         fields={getHeaderElems(data)}    // optional will be genrated automatically
         maximizeIcon={<span>{'>'}</span>} // optional, default: +
         minimizeIcon={<span>\/</span>}    // optional, default: -
-        indentLevelOffset={0}              // optional, default: 16   
+        indentLevelOffset={16}              // optional, default: 16   
         columnsWidth={{
               name: "70%",
               qty: "30%"

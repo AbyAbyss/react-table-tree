@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Tabletree.css';
 
-const INDENT_LEVEL_OFFSET = 16
+const INDENT_LEVEL_OFFSET = 0;
 
 export default (props) => {
 

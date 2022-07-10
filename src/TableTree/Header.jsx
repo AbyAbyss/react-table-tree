@@ -5,7 +5,7 @@ export default (props) => {
     return <thead>
         <tr>            
             {props.items.map((elem, i) => {
-                 if (elem === 'children') {
+                if (['children', 'CHILDREN'].includes(elem)) {
                     return null
                 } 
 
