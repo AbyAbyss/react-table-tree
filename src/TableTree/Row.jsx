@@ -1,16 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Tabletree.css';
 
 const LEVEL_OFFSET = 16
 
-class Row extends React.Component {
+export default (props) => {
 
-    constructor(props) {
-        super(props)
-        this.getExpandIcon = this.getExpandIcon.bind(this)
-    }
-
-    getExpandIcon(data, clickHandler) {
+    const getExpandIcon = (data, clickHandler) => {
         if (data._hasChildren) {
             if (data._showChildren) {
                 return (
@@ -36,53 +31,69 @@ class Row extends React.Component {
         return <span className="treegrid-expander"></span>
     }
 
-    clickHandler() {
-        if (this.props.data._hasChildren) {
-            this.props.onClick(this.props.data._key, this.props.index)
+    const clickHandler = () => {
+        if (props.data._hasChildren) {
+            props.onClick(props.data._key, props.index)
         }
     }
 
-    getIndent(level) {
+    const getIndent = (level) => {
         return <span className="treegrid-indent" style={{width: level * LEVEL_OFFSET}}></span>
     }
 
+    useEffect(() => {
 
-    render() {
-        if (!this.props.data._visible) {
+    }, []);
+
+    return <Render 
+        data={props.data}
+        fields={props.fields}
+        level={props.level}
+        getExpandIcon={getExpandIcon}
+        clickHandler={clickHandler}
+        getIndent={getIndent}
+        />
+
+
+}
+
+const Render = (props) => {
+    let hasChildren = props.getExpandIcon(props.data, props.clickHandler)
+
+    useEffect(() => {
+        if (!props.data._visible) {
+            return null
+        }
+    
+    }, [])
+
+
+    const items = props.fields.map((field, i) => {
+        if (field === 'children') {
             return null
         }
 
-        var hasChildren = this.getExpandIcon(this.props.data, this.clickHandler.bind(this))
+        let expandIcon
+        let offset = i === 0 ? props.getIndent(props.level) : null
 
-        const items = this.props.fields.map((field, i) => {
-            if (field === 'children') {
-                return null
-            }
-
-            var expandIcon
-            var offset = i === 0 ? this.getIndent(this.props.level) : null
-
-            if (i === 0) {
-                expandIcon = hasChildren
-            }
-            
-            return (
-                <td key={`${this.props.data._id}_${field}`} >
-                    <div>
-                        {offset}
-                        {expandIcon}
-                        {"  " + (this.props.data[field] || '')}
-                    </div>
-                </td>
-            )
-        })
-
+        if (i === 0) {
+            expandIcon = hasChildren
+        }
+        
         return (
+            <td key={`${props.data._id}_${field}`} >
+                <div>
+                    {offset}
+                    {expandIcon}
+                    {"  " + (props.data[field] || '')}
+                </div>
+            </td>
+        )
+    })
+
+    return (
         <tr>
             {items}
         </tr>
-        )
-    }
+    )
 }
-
-export default Row

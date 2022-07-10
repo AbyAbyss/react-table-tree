@@ -60,9 +60,9 @@ class App extends Component {
     return [obj]
   }
   
-  getHeaderElems() {
-    if (this.data && this.data.length) {
-      return Object.keys(this.data[0])
+  getHeaderElems(data) {
+    if (data && data.length) {
+      return Object.keys(data[0])
     }
 
     return []
@@ -71,8 +71,8 @@ class App extends Component {
   render() {  
     return (
       <Tree data={this.data} 
-      items={this.getHeaderElems()}
-      fields={this.getHeaderElems()}
+      items={this.getHeaderElems(this.data)}
+      fields={this.getHeaderElems(this.data)}
       columnsWidth={{
             name: "70%",
             qty: "30%"

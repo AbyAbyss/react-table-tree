@@ -1,45 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Row from './Row'
 
-class Body extends React.Component {
+export default (props) => {
 
-    constructor(props) {
-        super()
-        this.flattenArray = this.flattenArray.bind(this)
-        this.removeChildren = this.removeChildren.bind(this)
-        this.state = {dataToDisplay: this.flattenArray(props.data)}
+    const [dataToDisplay, setDataToDisplay] = useState(flattenArray(props.data))
 
-    }
+    const clickHandler = (key, index) => {
 
-    clickHandler(key, index) {
-
-        var tempState = this.state.dataToDisplay.slice(0)
+        var tempState = dataToDisplay.slice(0)
 
         tempState[index]._showChildren = !tempState[index]._showChildren
 
         if (tempState[index]._showChildren) {
-            this.insertInArray(
+            insertInArray(
                 tempState,
                 index + 1,
-                this.flattenArray(tempState[index].children, tempState[index]))
+                flattenArray(tempState[index].children, tempState[index]))
         } else {
-            this.removeChildren(tempState, key)
+            removeChildren(tempState, key)
         }
 
-        this.setState({dataToDisplay: tempState})
+        
+        setDataToDisplay(tempState)
+        // this.setState({dataToDisplay: tempState})
     }
 
-    removeChildren(array, key) {
-        let childrenIndex = this.indexOfProperty(array, "_parent", key)
+    const removeChildren = (array, key) => {
+        let childrenIndex = indexOfProperty(array, "_parent", key)
 
         while (childrenIndex !== -1) {
-            this.removeChildren(array, array[childrenIndex]._key)
+            removeChildren(array, array[childrenIndex]._key)
             array.splice(childrenIndex, 1)
-            childrenIndex = this.indexOfProperty(array, "_parent", key)
+            childrenIndex = indexOfProperty(array, "_parent", key)
         }
     }
 
-    insertInArray(array, index, obj) {
+    const insertInArray = (array, index, obj) => {
         if (obj.constructor === Array) {
             obj.forEach((elem, i) => {
                 array.splice(index + i, 0, elem)
@@ -49,7 +45,7 @@ class Body extends React.Component {
         }
     }
 
-    indexOfProperty(array, property, value) {
+    const indexOfProperty = (array, property, value) => {
         for (let i = 0; i < array.length; i ++) {
             if (array[i][property] === value) {
                 return i
@@ -59,17 +55,22 @@ class Body extends React.Component {
         return -1
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props !== nextProps) {
-            this.flattenArray(nextProps.data)
-        }
-    }
+    useEffect(() => {
+        flattenArray(props.data)
+    }, [props.data])
 
-    generateUUID() {
+    // componentWillReceiveProps(nextProps) {
+    //     if (this.props !== nextProps) {
+    //         this.flattenArray(nextProps.data)
+    //     }
+    // }
+
+    function generateUUID() {
         return (Math.random() + 1).toString(36).substring(7) + Date.now();
     }
 
-    flattenArray(DataArray, parent, returnArray) {
+        
+    function flattenArray(DataArray, parent, returnArray) {
         parent = parent || {}
         returnArray = returnArray || []
 
@@ -85,7 +86,7 @@ class Body extends React.Component {
                 _hasChildren: element._hasChildren || false,
                 _level: level,
                 _parent: parent._key,
-                _key: element._key || this.generateUUID(),
+                _key: element._key || generateUUID(),
                 _showChildren: element._showChildren || false,
                 _visible: parent._showChildren || true
             }
@@ -99,23 +100,48 @@ class Body extends React.Component {
         return returnArray
     }
 
-    render() {
-        const rows = this.state.dataToDisplay.map((elem, i) =>
-            <Row 
-            key={`row_${i}`}
-            fields={this.props.fields}
-            data={elem}
-            level={elem._level}
-            index={i}
-            onClick={this.clickHandler.bind(this)} />
-        )
+    return (
+        <tbody>
+            {
+                dataToDisplay.map((elem, i) => (
+                    <Row 
+                    key={`row_${i}`}
+                    fields={props.fields}
+                    data={elem}
+                    level={elem._level}
+                    index={i}
+                    onClick={(key, index) => clickHandler(key, index)} />
+                ))
+            }
+                {/* dataToDisplay.map((elem, i) => {
+                 <Row 
+                    key={`row_${i}`}
+                    fields={props.fields}
+                    data={elem}
+                    level={elem._level}
+                    index={i}
+                    onClick={(key, index) => clickHandler(key, index)} />
+                
+                } */}
+            
+        </tbody>
+    )
 
-        return (
-            <tbody>
-                {rows}
-            </tbody>
-        )
-    }
+    // render() {
+    //     const rows = this.state.dataToDisplay.map((elem, i) =>
+    //         <Row 
+    //         key={`row_${i}`}
+    //         fields={this.props.fields}
+    //         data={elem}
+    //         level={elem._level}
+    //         index={i}
+    //         onClick={(key, index) => clickHandler(key, index)} />
+    //     )
+
+    //     return (
+    //         <tbody>
+    //             {rows}
+    //         </tbody>
+    //     )
+    // }
 }
-
-export default Body

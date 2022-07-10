@@ -3,7 +3,7 @@ import Header from "./Header"
 
 import './Tabletree.css'
 
-const Tree = ({columnsWidth = {}, items, fields, data = []}) => {
+export default ({columnsWidth = {}, items, fields, data = []}) => {
 
     const getHeaderElems = (data) => {
       if (data && data.length) {
@@ -21,5 +21,3 @@ const Tree = ({columnsWidth = {}, items, fields, data = []}) => {
         </div>
     )
 }
-
-export default Tree;
