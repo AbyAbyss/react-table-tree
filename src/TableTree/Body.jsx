@@ -59,12 +59,6 @@ export default (props) => {
         flattenArray(props.data)
     }, [props.data])
 
-    // componentWillReceiveProps(nextProps) {
-    //     if (this.props !== nextProps) {
-    //         this.flattenArray(nextProps.data)
-    //     }
-    // }
-
     function generateUUID() {
         return (Math.random() + 1).toString(36).substring(7) + Date.now();
     }
@@ -113,35 +107,7 @@ export default (props) => {
                     onClick={(key, index) => clickHandler(key, index)} />
                 ))
             }
-                {/* dataToDisplay.map((elem, i) => {
-                 <Row 
-                    key={`row_${i}`}
-                    fields={props.fields}
-                    data={elem}
-                    level={elem._level}
-                    index={i}
-                    onClick={(key, index) => clickHandler(key, index)} />
-                
-                } */}
             
         </tbody>
     )
-
-    // render() {
-    //     const rows = this.state.dataToDisplay.map((elem, i) =>
-    //         <Row 
-    //         key={`row_${i}`}
-    //         fields={this.props.fields}
-    //         data={elem}
-    //         level={elem._level}
-    //         index={i}
-    //         onClick={(key, index) => clickHandler(key, index)} />
-    //     )
-
-    //     return (
-    //         <tbody>
-    //             {rows}
-    //         </tbody>
-    //     )
-    // }
 }
