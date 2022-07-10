@@ -1,4 +1,4 @@
-# This project is a fork of https://github.com/PhillBeck/react-gridtree-example
+### This project is a fork of https://github.com/PhillBeck/react-gridtree-example
 
 # Getting Started with Create React App
 
